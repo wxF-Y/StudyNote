@@ -26,5 +26,13 @@ double word -- 4字节
 
 全局内存块句柄
 
+# 窗口样式和窗口扩展样式
 
+https://docs.microsoft.com/en-us/windows/win32/winmsg/window-styles
+
+https://docs.microsoft.com/en-us/windows/win32/winmsg/extended-window-styles
+
+# 窗口消息
+
+https://docs.microsoft.com/en-us/windows/win32/winmsg/window-notifications
 

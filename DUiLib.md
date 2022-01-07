@@ -34,3 +34,12 @@ Control会根据父容器的宽度进行无限拉伸。如果父容器中其他�
 
 
 
+# 消息循环
+
+CWindowWnd(__WndProc) 
+
+​	-> 子窗口类(HandleMessage) 
+
+​		 -> 子窗口类(HandleCustomMessage)
+
+​		 ->子窗口成员CPaintManager(MessageHandler) 
