@@ -43,3 +43,5 @@ CWindowWnd(__WndProc)
 ​		 -> 子窗口类(HandleCustomMessage)
 
 ​		 ->子窗口成员CPaintManager(MessageHandler) 
+
+​			->查找到的控件的Event(&event),若存在继承关系，则调用孙子的Event()添加事件，然后调用其事件处理函数DoEvent.再决定是否需要调用父类控件的				DoEvent.
