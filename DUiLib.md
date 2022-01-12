@@ -78,7 +78,11 @@ CWindowWnd(__WndProc)
 
 ​	在Release方法中又将这一片预留的内存释放掉了。
 
-#### 	所以不太确定这片预留内存的用途?--私以为CMarkup在每次加载控件都是重新申请内存，所以还是应该添加调用Release。
+#### 	所以不太确定这片预留内存的用途?--私以为CMarkup在每次加载不同控件都是重新申请内存，所以还是应该添加调用Release。
+
+CControlUI* CDialogBuilder::Create(STRINGorID xml, LPCTSTR type, IDialogBuilderCallback* pCallback,  CPaintManagerUI* pManager, CControlUI* pParent) 是释放上一个控件内存，重新进行新开辟内存进行解析控件
+
+CControlUI* CDialogBuilder::Create(IDialogBuilderCallback* pCallback, CPaintManagerUI* pManager, CControlUI* pParent) 搜索CMarkup类型的m_xml成员的m_pElements节点空间的m_pElements[1]是否为空，进行创建
 
 ​	![CMarkup_LoadFromMem](.\image\CMarkup_LoadFromMem.png)
 
@@ -94,11 +98,15 @@ CWindowWnd(__WndProc)
 
 # 5.UILIB_ZIPRESOURCE
 
+## 	在添加进资源时必须将资源类型定为ZIPRES，因为在WinImplBase中使用zipResource时查找资源进行了写死
+
+![CDialogBuilder_Create_ZIPRESOURCE](\image\CDialogBuilder_Create_ZIPRESOURCE.png)
+
 ​	1.继承自WindowImplBase时覆写GetResourceType()和GetResourceID()
 
 ​	2.使用zipresource包中的控件xml动态创建控件方式：
 
-![CDialogBuilder_Create_ZIPRESOURCE](\image\CDialogBuilder_Create_ZIPRESOURCE.png)
+![CDialogBuilder_Create_ZIPRESOURCE](\image\SubClassWinImplBase_Create_ZIPRESOURCE.png)
 
 ​		原因：因为第一个参数-文件名不为空，则CDialogBuilder的Create()调用LoadFromFile().因为CPaintManager在继承的子类窗口类的onCreate()中调用CPaintManager的SetResourceZip()。所以在LoadFromFile ()中从zip中去寻找option.xml或tab.xml文件并解析
 
