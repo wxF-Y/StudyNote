@@ -625,9 +625,9 @@
 		<Attribute name="borderround" default="0,0" type="SIZE" comment="边框圆角半径,如(2,2)"/>
 		<Attribute name="bkimage" default="" type="STRING" comment="背景图片,如(bk.bmp或file='aaa.jpg' res='' restype='0' dest='0,0,0,0' source='0,0,0,0' corner='0,0,0,0' mask='#FF0000' fade='255' hole='false' xtiled='false' ytiled='false')"/>
 		<Attribute name="width" default="0" type="INT" comment="控件预设的宽度，如(100)"/>
-		<Attribute name="height" default="0" type="INT" comment="控件预设的高度，如(30)"/>
-		<Attribute name="minwidth" default="0" type="INT" comment="控件的最小宽度，如(100)"/>
-		<Attribute name="minheight" default="0" type="INT" comment="控件的最小高度，如(30)"/>
+		<Attribute name="height" default="0" type="INT" comment=度，如(100)"/>
+		<Attribute name="minheight" default="0" type="INT" comment="控件的最小高度，"控件预设的高度，如(30)"/>
+		<Attribute name="minwidth" default="0" type="INT" comment="控件的最小宽如(30)"/>
 		<Attribute name="maxwidth" default="9999" type="INT" comment="控件的最大宽度，如(100)"/>
 		<Attribute name="maxheight" default="9999" type="INT" comment="控件的最大高度，如(30)"/>
 		<Attribute name="text" default="" type="STRING" comment="显示文本,如(测试文本)"/>
