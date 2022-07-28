@@ -36,3 +36,8 @@ https://docs.microsoft.com/en-us/windows/win32/winmsg/extended-window-styles
 
 https://docs.microsoft.com/en-us/windows/win32/winmsg/window-notifications
 
+#判断point是否在rect里
+BOOL PtInRect(
+  [in] const RECT *lprc,
+  [in] POINT      pt
+);

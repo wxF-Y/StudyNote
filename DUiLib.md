@@ -141,3 +141,10 @@ CControlUI* CDialogBuilder::Create(IDialogBuilderCallback* pCallback, CPaintMana
 ### 2.1例程
 
 ![CDialogBuilder_Create_same](.\image\CDialogBuilder_Create_same.png)
+
+
+
+## 窗口和控件透明
+
+![](.\image\窗口和控件透明.jpg)
+

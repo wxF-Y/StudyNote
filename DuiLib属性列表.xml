@@ -6,11 +6,12 @@
 		<!--default为空，尚不清楚默认值-->
 		<Attribute name="id" default="" type="INT"  comment="字体编号，在xml文件控件中使用"/>
 		<Attribute name="name" default="" type="STRING"  comment="字体名字,例如微软雅黑，黑体"/>
-		<Attribute name="size" default="" type="INT"  comment="字体大小"/>
+		<Attribute name="size" default="12" type="INT"  comment="字体大小"/>
 		<Attribute name="bold" default="false" type="BOOL"  comment="字体是否为粗体"/>
 		<Attribute name="italic" default="false" type="BOOL"  comment="字体是否为斜体"/>
 		<Attribute name="underline" default="false" type="BOOL"  comment="字体是否有下划线"/>
 		<Attribute name="shared" default="false" type="BOOL"  comment="字体是否共享"/>
+		<Attribute name="default" default="false" type="BOOL"  comment="字体是为默认字体"/>
 	</Font>
 	<Window parent="">
 		<Attribute name="size" default="0,0" type="SIZE" comment="窗口的初始化大小,如(800,600)"/>
