@@ -9,3 +9,13 @@ ebp	栈底基地址指针
 ecx 	存放this指针
 
 esp	栈顶指针
+
+
+
+## 切换Bit
+
+```
+.load wow64exts
+!sw
+```
+
