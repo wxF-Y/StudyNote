@@ -41,3 +41,16 @@ BOOL PtInRect(
   [in] const RECT *lprc,
   [in] POINT      pt
 );
+
+# SendMessage\PostMessage
+
+同线程：
+
+https://blog.51cto.com/dreamylights/1325841
+
+SendMessage不走消息循环，windows内部直接调用窗口处理函数
+
+PostMessage走消息循环调窗口处理函数
+
+跨线程:
+
