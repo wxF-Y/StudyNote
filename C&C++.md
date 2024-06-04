@@ -43,3 +43,107 @@ vs的计算顺序是从右至左，clang的计算顺序是从左至右，具体�
 ##### 	2.隐式编译器屏障(Implied Compiler Barriers) --调用func中存在barrier的调用或调用一个外部func(相对inline)
 
 ##### 
+
+
+
+# 单例实例--https://blog.shipengx.com/archives/f61b5eee.html
+
+Q:动态内存分配时 `new` 底层操作的是**非原子性**导致的，执行 `pinstance_ = new LazySingleton;` 语句时，底层其实对应了三个步骤：
+
+1. 向系统申请分配内存，大小为 `sizeof(LazySingleton)`
+2. 调用 `LazySingleton` 的默认构造函数在申请的内存上构造出实例
+3. 返回申请内存的指针给 `pinstance_`
+
+A:使用memory barrier，禁止乱序优化
+
+### Meyers单例
+
+```c++
+class MeyersSingleton
+{
+private:
+    MeyersSingleton() {};
+    MeyersSingleton(const MeyersSingleton &) = delete;
+    MeyersSingleton &operator=(const MeyersSingleton &) = delete;
+
+public:
+    ~MeyersSingleton();
+
+public:
+    static MeyersSingleton &GetInstance()
+    {
+        static MeyersSingleton instance;
+        return instance;
+    }
+};
+```
+
+多线程安全：C++11 及以后的标准中 - If multiple threads attempt to initialize the same static local variable concurrently, the initialization occurs exactly once (similar behavior can be obtained for arbitrary functions with std::call_once).
+
+
+
+### 百度 Apollo 中的泛化懒汉式单例
+
+```c++
+#ifndef CYBER_COMMON_MACROS_H_
+#define CYBER_COMMON_MACROS_H_
+
+#include <iostream>
+#include <memory>
+#include <mutex>
+#include <type_traits>
+#include <utility>
+
+#include "cyber/base/macros.h"
+
+DEFINE_TYPE_TRAIT(HasShutdown, Shutdown)
+
+template <typename T>
+typename std::enable_if<HasShutdown<T>::value>::type CallShutdown(T *instance) {
+  instance->Shutdown();
+}
+
+template <typename T>
+typename std::enable_if<!HasShutdown<T>::value>::type CallShutdown(
+    T *instance) {
+  (void)instance;
+}
+
+// There must be many copy-paste versions of these macros which are same
+// things, undefine them to avoid conflict.
+#undef UNUSED
+#undef DISALLOW_COPY_AND_ASSIGN
+
+#define UNUSED(param) (void)param
+
+#define DISALLOW_COPY_AND_ASSIGN(classname) \
+  classname(const classname &) = delete;    \
+  classname &operator=(const classname &) = delete;
+
+#define DECLARE_SINGLETON(classname)                                      \
+ public:                                                                  \
+  static classname *Instance(bool create_if_needed = true) {              \
+    static classname *instance = nullptr;                                 \
+    if (!instance && create_if_needed) {                                  \
+      static std::once_flag flag;                                         \
+      std::call_once(flag,                                                \
+                     [&] { instance = new (std::nothrow) classname(); }); \
+    }                                                                     \
+    return instance;                                                      \
+  }                                                                       \
+                                                                          \
+  static void CleanUp() {                                                 \
+    auto instance = Instance(false);                                      \
+    if (instance != nullptr) {                                            \
+      CallShutdown(instance);                                             \
+    }                                                                     \
+  }                                                                       \
+                                                                          \
+ private:                                                                 \
+  classname();                                                            \
+  DISALLOW_COPY_AND_ASSIGN(classname)
+
+#endif  // CYBER_COMMON_MACROS_H_
+```
+
+实现：使用static的onec_flag变量和std::call_once保证多线安全
