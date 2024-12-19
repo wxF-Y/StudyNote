@@ -36,3 +36,7 @@ NEG : 取相反数     =      按位取反 + 1
 
 move dst src
 
+![image-20241209110821151](E:\StudyNote\image\dsm_instruction.png)
+
+mov         ecx,dword ptr fs:[2Ch]//TEB便宜0x2Ch的地方是__tls_array__指针
+
