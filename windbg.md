@@ -35,3 +35,16 @@ eip	下一指令在内存中的位置
  *VA = Image Base + RVA*
 
 windbg中为运行时虚拟地址，IDA加载时可通过Manual load设置模块的加载基地址（即Image Base）
+
+
+
+## 查看符号
+
+x [options] Module!SymbolType
+x [options] *
+
+```
+x tabx_pp!*s_pSinglton		//*为通配
+x tabx_pp!CSingletonT<CCommonConfigMgr>::s_pSinglton   //查看特定符号
+```
+
