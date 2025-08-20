@@ -1,3 +1,12 @@
+## PDB
+
+```
+环境变量： _NT_SYMBOL_PATH
+值： srv*d:\ms_symbols*https://msdl.microsoft.com/download/symbols;SRV*d:\lds_symbols*http://114.115.237.236/symbols; SRV*d:\lds_symbols*http://10.16.68.31/symbols;SRV*d:\lds_symbols*http://pc01v.lds.corp.qihoo.net/symbols;srv*d:\lds_symbols*http://192.168.11.23/symbols;srv*d:\lds_symbols*http://192.168.21.169/symbols;srv*d:\lds_symbols*http://172.16.10.43/symbol;
+```
+
+
+
 #### lm--列出已加载的模块
 
 ## 寄存器

@@ -19,3 +19,16 @@ ssh-keygen -t rsa -C "上面设置的邮箱地址"	--	生成密匙
 ![git_ssh](.\image\git_ssh.png)
 
 6.选择new ssh key.填写title(随便写).将复制的内容填入key下方的框中.
+
+
+
+## 迁移仓库
+
+```
+cd existing_repo
+git remote rename origin old-origin
+git remote add origin http://gitlab-inc.ludashi.com/payment_tools/general_user/mgame_manual_sign.git
+git push -u origin --all
+git push -u origin --tags
+```
+
